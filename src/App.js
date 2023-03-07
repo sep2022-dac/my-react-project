@@ -21,6 +21,9 @@ function App() {
     let url = "http://localhost:8080/greeting/add-record";
     let data = {
       message: message,
+      name: "akshya",
+      city: "maumbi",
+      state: "mh",
     };
     await axios.post(url, data);
 
@@ -32,6 +35,13 @@ function App() {
     setMessage(e.target.value);
   };
 
+  let handleEnterCode = (e) => {
+    console.log(e);
+    if (e.keyCode == 13) {
+      addNewRecord();
+    }
+  };
+
   // UI - RENDER - VIEW
   return (
     <div>
@@ -41,6 +51,7 @@ function App() {
         placeholder="Whatsapppp...."
         value={message}
         onChange={messageHandler}
+        onKeyUp={handleEnterCode}
       />
       <input type="button" value="Add Record" onClick={addNewRecord} />
 
