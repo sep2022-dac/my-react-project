@@ -24,6 +24,7 @@ function App() {
     };
     await axios.post(url, data);
 
+    document.getElementById("textid").value = "";
     readAllGreetings();
   };
 
