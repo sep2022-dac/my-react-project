@@ -1,7 +1,11 @@
+import axios from "axios";
+
 function App() {
-  // Member Function :: ACTION HAPPEN HERE
   let readAllGreetings = () => {
     console.log("Handling Event...onclick event!");
+
+    let url = "http://localhost:8080/greeting/read-all-record";
+    axios.get(url);
   };
 
   // UI - RENDER
