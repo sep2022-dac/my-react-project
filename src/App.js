@@ -45,18 +45,27 @@ function App() {
   // UI - RENDER - VIEW
   return (
     <div>
-      <h1>REST API </h1>
+      <h1 className="bg-primary text-light p-3 sticky-top">REST API </h1>
+
       <input
+        className="form-control form-control-lg"
         type="text"
         placeholder="Whatsapppp...."
         value={message}
         onChange={messageHandler}
         onKeyUp={handleEnterCode}
       />
-      <input type="button" value="Add Record" onClick={addNewRecord} />
+      <input
+        className="btn btn-primary w-100 m-1"
+        type="button"
+        value="Add Record"
+        onClick={addNewRecord}
+      />
 
       {list.map((item) => (
-        <div key={item.id}>{item.message}</div>
+        <div className="alert alert-primary m-0 mb-1" key={item.id}>
+          {item.message}
+        </div>
       ))}
     </div>
   );
