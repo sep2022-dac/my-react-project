@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 function App() {
   let [list, setList] = useState([]);
+  let [message, setMessage] = useState("");
 
   useEffect(() => {
     readAllGreetings();
@@ -12,7 +13,6 @@ function App() {
     let url = "http://localhost:8080/greeting/read-all-record";
     let res = await axios.get(url);
 
-    // console.log(res);
     // update the list for rerender
     setList(res.data.reverse());
   };
@@ -20,19 +20,28 @@ function App() {
   let addNewRecord = async () => {
     let url = "http://localhost:8080/greeting/add-record";
     let data = {
-      message: document.getElementById("textid").value,
+      message: message,
     };
     await axios.post(url, data);
 
-    document.getElementById("textid").value = "";
+    setMessage("");
     readAllGreetings();
+  };
+
+  let messageHandler = (e) => {
+    setMessage(e.target.value);
   };
 
   // UI - RENDER - VIEW
   return (
     <div>
       <h1>REST API </h1>
-      <input type="text" placeholder="Whatsapppp...." id="textid" />
+      <input
+        type="text"
+        placeholder="Whatsapppp...."
+        value={message}
+        onChange={messageHandler}
+      />
       <input type="button" value="Add Record" onClick={addNewRecord} />
 
       {list.map((item) => (
