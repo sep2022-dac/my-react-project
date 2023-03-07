@@ -1,6 +1,11 @@
-// JSX - Javascript XML
+// JSX - Javascript XML / HTML
+// Function Component
 function App() {
-  return <h1>Hello World</h1>;
+  return (
+    <div>
+      <h1>Hello</h1>
+    </div>
+  );
 }
 
 export default App;
