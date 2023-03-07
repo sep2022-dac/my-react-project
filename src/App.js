@@ -1,33 +1,20 @@
 import axios from "axios";
 
 function App() {
-  let readAllGreetings = () => {
-    console.log("Handling Event...onclick event!");
-
-    let url = "http://localhost:8080/greeting/read-all-record";
-    axios.get(url);
-  };
-
-  let addNewRecord = () => {
-    let url = "http://localhost:8080/greeting/add-record";
-    let data = {
-      message: "Using React Making Post Call",
-    };
-    axios.post(url, data);
-  };
+  let list = [
+    { id: 17, message: "Using React Making Post Call 1" },
+    { id: 18, message: "Using React Making Post Call 2" },
+    { id: 19, message: "Using React Making Post Call 3" },
+    { id: 20, message: "Using React Making Post Call 4" },
+  ];
 
   // UI - RENDER - VIEW
   return (
     <div>
-      <h1>REST API </h1>
-      <input
-        type="button"
-        value="Read All Greetings"
-        onClick={readAllGreetings}
-      />
-
-      <h1>Add Record</h1>
-      <input type="button" value="Add Record" onClick={addNewRecord} />
+      <h1>Static List </h1>
+      {list.map((item) => (
+        <div key={item.id}>{item.message}</div>
+      ))}
     </div>
   );
 }
