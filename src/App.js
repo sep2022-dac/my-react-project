@@ -1,19 +1,26 @@
 import axios from "axios";
+import { useState } from "react";
 
 function App() {
-  let readAllGreetings = () => {
-    console.log("Handling Event...onclick event!");
+  let [list, setList] = useState([]);
 
+  let readAllGreetings = async () => {
     let url = "http://localhost:8080/greeting/read-all-record";
-    axios.get(url);
+    let res = await axios.get(url);
+
+    // console.log(res);
+    // update the list for rerender
+    setList(res.data.reverse());
   };
 
-  let addNewRecord = () => {
+  let addNewRecord = async () => {
     let url = "http://localhost:8080/greeting/add-record";
     let data = {
-      message: "Using React Making Post Call",
+      message: "Helloooooooooooo",
     };
-    axios.post(url, data);
+    await axios.post(url, data);
+
+    readAllGreetings();
   };
 
   // UI - RENDER - VIEW
@@ -25,9 +32,11 @@ function App() {
         value="Read All Greetings"
         onClick={readAllGreetings}
       />
-
-      <h1>Add Record</h1>
       <input type="button" value="Add Record" onClick={addNewRecord} />
+
+      {list.map((item) => (
+        <div key={item.id}>{item.message}</div>
+      ))}
     </div>
   );
 }
