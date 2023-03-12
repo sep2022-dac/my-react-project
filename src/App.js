@@ -4,6 +4,19 @@ import { useState } from "react";
 function App() {
   let [list, setList] = useState([]);
 
+  let getJwt = async () => {
+    let url = "http://localhost:8080/auth/authenticate/";
+    let data = {
+      username: "nikhil",
+      password: "test123",
+    };
+
+    let res = await axios.post(url, data);
+    console.log(res.data.jwt);
+
+    localStorage.setItem("jwt", res.data.jwt);
+  };
+
   let readAllOrders = async () => {
     let url = "http://localhost:8080/order/";
     let jwt = localStorage.getItem("jwt");
@@ -30,6 +43,7 @@ function App() {
   return (
     <div>
       <h1>REST API </h1>
+      <input type="button" value="Get JWT via Login" onClick={getJwt} />
       <input type="button" value="Read All Order" onClick={readAllOrders} />
       <input type="button" value="Add Record" onClick={addNewRecord} />
 
