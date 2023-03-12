@@ -4,11 +4,22 @@ import { useState } from "react";
 function App() {
   let [list, setList] = useState([]);
 
+  let [username, setUsername] = useState("");
+  let [password, setPassword] = useState("");
+
+  let userNameHandler = (e) => {
+    setUsername(e.target.value);
+  };
+
+  let passwordHandler = (e) => {
+    setPassword(e.target.value);
+  };
+
   let getJwt = async () => {
     let url = "http://localhost:8080/auth/authenticate/";
     let data = {
-      username: "nikhil",
-      password: "test123",
+      username: username,
+      password: password,
     };
 
     let res = await axios.post(url, data);
@@ -32,9 +43,17 @@ function App() {
   let addNewRecord = async () => {
     let url = "http://localhost:8080/order/";
     let data = {
-      message: "Helloooooooooooo",
+      productId: "RANDOM ID",
+      productName: "WIND",
+      productQty: 1,
+      productPrice: 599.99,
+      purchaseDate: "23/02/2022",
+      offer: true,
     };
-    await axios.post(url, data);
+
+    let jwt = localStorage.getItem("jwt");
+    let config = { headers: { Authorization: `Bearer ${jwt}` } }; // string literals
+    await axios.post(url, data, config);
 
     readAllOrders();
   };
@@ -43,7 +62,22 @@ function App() {
   return (
     <div>
       <h1>REST API </h1>
+      <input
+        type="text"
+        placeholder="Enter Username"
+        value={username}
+        onChange={userNameHandler}
+      />
+      <input
+        type="password"
+        placeholder="Enter Password"
+        value={password}
+        onChange={passwordHandler}
+      />
+
       <input type="button" value="Get JWT via Login" onClick={getJwt} />
+
+      <div></div>
       <input type="button" value="Read All Order" onClick={readAllOrders} />
       <input type="button" value="Add Record" onClick={addNewRecord} />
 
