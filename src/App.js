@@ -6,9 +6,7 @@ function App() {
 
   let readAllOrders = async () => {
     let url = "http://localhost:8080/order/";
-    let jwt = `eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJuaWtoaWwiLCJpc3MiOiJjZGFjIiwiaWF0IjoxNjc4NTk3Mzk2LCJleHAiOjE2Nzg2MDA5OTZ9.VZ8e0xI-iPPQU0edVJQxW4kW0zjIl1FTMf8dywfKtXRIUSQlU2Z5FNCUTYP_P7A4D-cUUyQ5m2UleycQ5xty9Q`;
-
-    // let res = await axios.get(url);
+    let jwt = localStorage.getItem("jwt");
 
     let config = { headers: { Authorization: `Bearer ${jwt}` } }; // string literals
     let res = await axios.get(url, config);
@@ -36,7 +34,9 @@ function App() {
       <input type="button" value="Add Record" onClick={addNewRecord} />
 
       {list.map((item) => (
-        <div key={item.id}>{item.message}</div>
+        <div key={item.id}>
+          {item.id} {item.productId} {item.productName}
+        </div>
       ))}
     </div>
   );
